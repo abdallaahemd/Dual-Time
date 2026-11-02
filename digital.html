@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at top, #1e293b, #0f172a);
+            font-family: "Segoe UI", Tahoma, sans-serif;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 50px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        .label {
+            color: #94a3b8;
+            font-size: 14px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        #clock {
+            font-family: "Courier New", monospace;
+            font-size: clamp(32px, 8vw, 64px);
+            font-weight: bold;
+            color: #FFB020;
+            letter-spacing: 4px;
+            text-shadow: 0 0 12px rgba(255, 176, 32, 0.6), 0 0 30px rgba(255, 176, 32, 0.25);
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="label">Current Time</div>
+        <div id="clock"></div>
+    </div>
+
+    <script>
+        function clock() {
+            let date = new Date();
+            let seconds = date.getSeconds();
+            let minutes = date.getMinutes();
+            let hours = date.getHours();
+            let period = "AM";
+
+            if (hours == 0) {
+                hours = 12;
+                period = "AM";
+            } else if (hours >= 12) {
+                hours = hours - 12;
+                period = "PM";
+            }
+
+            if (hours == 0) {
+                hours = 12;
+            }
+
+            hours = hours < 10 ? "0" + hours : hours;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            let time = `${hours}:${minutes}:${seconds} ${period}`;
+            document.getElementById("clock").innerText = time;
+        }
+
+        clock();
+        setInterval(clock, 1000);
+    </script>
+</body>
+
+</html>
